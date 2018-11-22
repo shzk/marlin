@@ -1,3 +1,24 @@
+<?php
+function dd($data)
+{
+    echo '<pre>';
+    var_dump($data);
+    echo '</pre>';
+}
+
+//1. connect to db
+$pdo = new PDO('mysql:host=localhost;dbname=marlin;charset=utf8;', 'root', 'root');
+
+//2 make query
+$sql = 'SELECT * FROM posts';
+$statement = $pdo->prepare($sql);
+$statement->execute();
+
+//3. get array $posts
+$posts = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+//4. output
+?>
 <!doctype html>
 <html lang="ru">
 <head>
@@ -18,7 +39,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="index.html">MainPage</a>
+                <a class="nav-link" href="index.php">MainPage</a>
             </li>
         </ul>
     </div>
@@ -36,14 +57,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Lorem ipsum dolor.</td>
-                    <td>
-                        <a href="#" class="btn btn-warning">Edit</a>
-                        <a href="#" class="btn btn-danger">Delete</a>
-                    </td>
-                </tr>
+                    <?php foreach ($posts as $post): ?>
+                        <tr>
+                            <th scope="row"><?php echo $post['id'];?></th>
+                            <td><?php echo $post['title'];?></td>
+                            <td>
+                                <a href="#" class="btn btn-warning">Edit</a>
+                                <a href="#" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
