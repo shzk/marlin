@@ -2,9 +2,13 @@
 
 class Connection
 {
-    public static function make()
+    public static function make($config)
     {
-        $pdo = new PDO('mysql:host=localhost;dbname=marlin;charset=utf8;', 'root', 'root');
-        return $pdo;
+        return new PDO(
+            "{$config['connection']};
+            dbname={$config['database']};
+            charset={$config['charset']}",
+            $config['username'],
+            $config['password']);
     }
 }
