@@ -1,3 +1,9 @@
+<?php
+
+include 'functions.php';
+$db = include 'database/start.php';
+$post = $db->getOne('posts', $_GET['id']);
+?>
 <!doctype html>
 <html lang="ru">
 <head>
@@ -26,28 +32,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <a href="create.php" class="btn btn-success mt-20 mb-20">Add Post</a>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($posts as $post): ?>
-                    <tr>
-                        <th scope="row"><?php echo $post['id'];?></th>
-                        <td><a href="/show.php?id=<?php echo $post['id'];?>"><?php echo $post['title'];?></a></td>
-                        <td>
-                            <a href="/edit.php?id=<?php echo $post['id'];?>" class="btn btn-warning">Edit</a>
-                            <a href="/delete.php?id=<?php echo $post['id'];?>" class="btn btn-danger" onclick="return confirm('are you sure?')">Delete</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
+            <form action="/update.php?id=<?php echo $post['id']; ?>" method="POST">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" class="form-control" value="<?php echo $post['title']; ?>">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-warning">Edit Post</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
