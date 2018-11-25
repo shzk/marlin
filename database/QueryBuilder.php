@@ -28,4 +28,14 @@ class QueryBuilder
         $statement = $this->pdo->prepare($sql);
         $statement->execute($data);
     }
+
+    public function getOne($table, $id)
+    {
+        $sql = "SELECT * FROM posts WHERE id=:id";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
 }

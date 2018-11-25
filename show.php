@@ -1,3 +1,9 @@
+<?php
+
+include 'functions.php';
+$db = include 'database/start.php';
+$post = $db->getOne('posts', $_GET['id']);
+?>
 <!doctype html>
 <html lang="ru">
 <head>
@@ -26,7 +32,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <a href="create.php" class="btn btn-success mt-20 mb-20">Add Post</a>
             <table class="table">
                 <thead>
                 <tr>
@@ -36,16 +41,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($posts as $post): ?>
                     <tr>
                         <th scope="row"><?php echo $post['id'];?></th>
-                        <td><a href="/show.php?id=<?php echo $post['id'];?>"><?php echo $post['title'];?></a></td>
-                        <td>
-                            <a href="#" class="btn btn-warning">Edit</a>
-                            <a href="#" class="btn btn-danger">Delete</a>
-                        </td>
+                        <td><?php echo $post['title'];?></td>
+<!--                        <td>-->
+<!--                            <a href="#" class="btn btn-warning">Edit</a>-->
+<!--                            <a href="#" class="btn btn-danger">Delete</a>-->
+<!--                        </td>-->
                     </tr>
-                <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
