@@ -1,7 +1,7 @@
 <?php
 
 include 'functions.php';
-$db = include 'database/start.php';
+$db = include __DIR__ . '/../database/start.php';
 $post = $db->getOne('posts', $_GET['id']);
 ?>
 <!doctype html>
