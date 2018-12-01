@@ -6,7 +6,7 @@ class Validation
     {
         $errors = [];
         foreach ($data as $key => $value) {
-            if (isset($value)) {
+            if (!isset($value) || $value === '') {
                 $errors[] = 'Поле ' . $key . ' должно быть заполнено';
             }
         }
