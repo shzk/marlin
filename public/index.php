@@ -1,15 +1,7 @@
 <?php
-include __DIR__ . '/../functions.php';
 
-$routes = [
-    '/' => 'functions/homepage.php',
-    '/about' => 'functions/about.php'
-];
+require '../vendor/autoload.php';
 
-$route = $_SERVER['REQUEST_URI'];
+use App\QueryBuilder;
 
-if(array_key_exists($route, $routes)) {
-    include __DIR__.'/../'.$routes[$route]; exit;
-} else {
-    dd(404);
-}
+$db = new QueryBuilder();
