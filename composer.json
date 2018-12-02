@@ -1,6 +1,7 @@
 {
   "require": {
-    "aura/sqlquery": "2.7.1"
+    "aura/sqlquery": "2.7.1",
+    "illuminate/support": "^5.7"
   },
   "autoload": {
     "psr-4": {
