@@ -2,6 +2,8 @@
 
 require '../vendor/autoload.php';
 
-use App\QueryBuilder;
+if ($_SERVER['REQUEST_URI'] == '/home') {
+    require '../app/controllers/homepage.php';
+}
 
-$db = new QueryBuilder();
+exit;
