@@ -22,6 +22,19 @@ class HomeController
 
     public function about($vars)
     {
+        try {
+            $this->withdraw($vars['amount']);
+        } catch (\Exception $exception) {
+            flash()->error($exception->getMessage());
+        }
         echo $this->templates->render('about', ['name' => 'Jonathan']);
+    }
+
+    public function withdraw($amount =1) {
+        $total = 10;
+
+        if ($amount > $total) {
+            throw new \Exception('not enough funds');
+        }
     }
 }

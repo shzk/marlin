@@ -3,3 +3,4 @@ $this->layout('layout', ['title' => 'User Profile']) ?>
 
 <h1>User Profile</h1>
 <p>Hello, <?=$this->e($name)?> about page</p>
+<?php echo flash()->display(); ?>
