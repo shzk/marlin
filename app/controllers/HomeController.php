@@ -39,9 +39,7 @@ class HomeController
     {
         $total = 10;
 
-        throw new AccountIsBlockedException('Your account is temporary blocked');
-        exit;
-
+//        throw new AccountIsBlockedException('Your account is temporary blocked');
         if ($amount > $total) {
             throw new NotEnoughMoneyException('not enough funds');
         }
