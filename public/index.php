@@ -7,8 +7,10 @@ if( !session_id() ) @session_start();
 require '../vendor/autoload.php';
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', '/home', ['App\controllers\HomeController', 'index']);
-    $r->addRoute('GET', '/about/{amount:\d+}', ['App\controllers\HomeController', 'about']);
+    $r->addRoute('GET', '/', ['App\controllers\HomeController', 'index']);
+    $r->addRoute('GET', '/about/', ['App\controllers\HomeController', 'about']);
+    $r->addRoute('GET', '/verification/', ['App\controllers\HomeController', 'emailVerification']);
+    $r->addRoute('GET', '/login/', ['App\controllers\HomeController', 'login']);
     // {id} must be a number (\d+)
     $r->addRoute('GET', '/user/{id:\d+}', ['App\controllers\HomeController', 'index']);
     // The /{title} suffix is optional
