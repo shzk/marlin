@@ -1,10 +1,36 @@
 <?php
-
-
 // Start a Session
+use Aura\SqlQuery\QueryFactory;
+use Delight\Auth\Auth;
+use League\Plates\Engine;
+
 if( !session_id() ) @session_start();
 
 require '../vendor/autoload.php';
+
+$builder = new DI\ContainerBuilder();
+$builder->addDefinitions([
+    Engine::class => function() {
+        return new Engine('../app/views');
+    },
+    PDO::class => function() {
+        $driver = 'mysql';
+        $host = 'localhost';
+        $dbname = 'marlin';
+        $uname = 'root';
+        $pswd = 'root';
+
+        return new PDO("$driver:host=$host;dbname=$dbname", $uname, $pswd);
+    },
+    Delight\Auth\Auth::class => function($container) {
+        return new Auth($container->get('PDO'));
+    },
+    QueryFactory::class => function() {
+        return new QueryFactory('mysql');
+    }
+]);
+$container = $builder->build();
+
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', ['App\controllers\HomeController', 'index']);
@@ -37,10 +63,6 @@ switch ($routeInfo[0]) {
         // ... 405 Method Not Allowed
         break;
     case FastRoute\Dispatcher::FOUND:
-        $handler = $routeInfo[1];
-        $vars = $routeInfo[2];
-        $controller = new $handler[0];
-        // ... call $handler with $vars
-         call_user_func([$controller, $handler[1]], $vars);
+        $container->call($routeInfo[1], $routeInfo[2]);
         break;
 }
