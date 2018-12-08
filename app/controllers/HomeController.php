@@ -22,7 +22,8 @@ class HomeController
 
     public function index($vars)
     {
-        d($this->auth->getUsername());die;
+        $this->auth->admin()->addRoleForUserById(2, \Delight\Auth\Role::ADMIN);
+        d($this->auth->getRoles());die;
         $db = new QueryBuilder();
         $posts = $db->getAll('posts');
         echo $this->templates->render('homepage', ['postsInView' => $posts]);
