@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use Aura\SqlQuery\QueryFactory;
 use PDO;
 
@@ -14,6 +15,7 @@ class QueryBuilder
         $this->pdo = $pdo;
         $this->queryFactory = $qf;
     }
+
 
     public function getAll($table)
     {
@@ -41,7 +43,7 @@ class QueryBuilder
         $update = $this->queryFactory->newUpdate();
 
         $update
-            ->table($table)                  // update this table
+            ->table($table)// update this table
             ->cols($data)
             ->where('id = :id', ['id' => $id]);
 

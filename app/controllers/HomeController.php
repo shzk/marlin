@@ -28,6 +28,7 @@ class HomeController
         echo $this->templates->render('homepage', ['postsInView' => $posts]);
     }
 
+
     public function about()
     {
 
